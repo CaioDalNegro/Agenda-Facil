@@ -43,4 +43,13 @@ public class User {
     // Define que o campo não pode ser atualizado após ser criado
     @Column(updatable = false)
     private LocalDateTime createdAt;
+
+    // Executa automaticamente antes de salvar no banco
+    @PrePersist
+    protected void onCreate() {
+        // Define a data atual automaticamente
+        this.createdAt = LocalDateTime.now();
+    }
+
+    
 }
