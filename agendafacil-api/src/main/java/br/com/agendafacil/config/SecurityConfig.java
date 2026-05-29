@@ -4,8 +4,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration // Define que essa classe é uma configuração do Spring
 public class SecurityConfig {
@@ -17,11 +19,7 @@ public class SecurityConfig {
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
-
-        /*
-         * BCryptPasswordEncoder: cuida da parte de Criptografia de senhas
-         */
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(); //BCryptPasswordEncoder: cuida da parte de Criptografia de senhas
     }
 
     /*
@@ -31,10 +29,21 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration config
     ) throws Exception {
+        return config.getAuthenticationManager(); //Retorna o AuthenticationManager configurado automaticamente pelo Spring.
+    }
 
-        /*
-         * Retorna o AuthenticationManager configurado automaticamente pelo Spring.
-         */
-        return config.getAuthenticationManager();
+    /*
+     * Configuração principal da segurança.
+     */
+    @Bean
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http
+    ) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth                 //Configura permissões das rotas.
+                        .requestMatchers("/auth/**").permitAll()    //Libera todas as rotas /auth/**
+                        .anyRequest().authenticated());             // Qualquer outra rota precisa autenticação.
+        return http.build();                                        // Retorna configuração pronta.
     }
 }

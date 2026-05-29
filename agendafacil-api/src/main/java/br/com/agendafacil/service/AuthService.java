@@ -27,6 +27,10 @@ public class AuthService {
     // Método cadastro------------------------------------------->
     public AuthResponse register(RegisterRequest request) {
 
+        if (repository.findByEmail(request.email()).isPresent()) {
+            throw new RuntimeException("Email já cadastrado"); // Lança erro customizado
+        }
+
         // Cria usuário usando Builder
         User user = User.builder()
                 .name(request.name()) // Nome vindo do request
@@ -34,9 +38,8 @@ public class AuthService {
                 .password(passwordEncoder.encode(request.password())) // Criptografa senha
                 .role(Role.CLIENT) // Define role padrão
                 .build(); // Finaliza construção
-
-        // Salva usuário banco
-        repository.save(user);
+            
+        repository.save(user); // Salva usuário no banco
         String token = jwtService.generateToken(user); // Gera token JWT
         return new AuthResponse(token); // Retorna token
     }
