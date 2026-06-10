@@ -40,7 +40,7 @@ public class SecurityConfig {
             HttpSecurity http
     ) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable())                       // Desabilita CSRF
                 .authorizeHttpRequests(auth -> auth                 //Configura permissões das rotas.
                         .requestMatchers("/auth/**").permitAll()    //Libera todas as rotas /auth/**
                         .anyRequest().authenticated());             // Qualquer outra rota precisa autenticação.

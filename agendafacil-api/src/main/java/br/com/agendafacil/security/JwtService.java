@@ -13,7 +13,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtService {
 
     // Chave secreta do token
-    private static final String SECRET_KEY = "minha-chave-super-secreta";
+    private static final String SECRET_KEY = "YWdlbmRhZmFjaWwtand0LXNlY3JldC1rZXktc3VwZXItc2VndXJhLTIwMjY=";
 
     // Gera Token do JWT----------------------------->
     public String generateToken(UserDetails user) {
