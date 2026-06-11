@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 
 @RestController // Define esta classe como Controller REST
-
-// URL base dos endpoints
-// Todas as rotas começarão com /barbers
-@RequestMapping("/barbers")
+@RequestMapping("/barbers") // URL base dos endpoints
 @RequiredArgsConstructor // Cria construtor automaticamente
 public class BarberController {
 

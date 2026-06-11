@@ -25,7 +25,7 @@ import lombok.Setter;
 public class Barber {
 
     @Id // Define como chave primária da tabela
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera UUID automaticamente
+    @GeneratedValue
     private UUID id;
 
     // Campo obrigatório

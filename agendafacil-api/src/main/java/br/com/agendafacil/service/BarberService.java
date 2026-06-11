@@ -8,11 +8,8 @@ import br.com.agendafacil.entity.Barber;
 import br.com.agendafacil.repository.BarberRepository;
 import lombok.RequiredArgsConstructor;
 
-// Informa ao Spring que esta classe contém regras de negócio
-@Service
-
-// Gera automaticamente o construtor para injeção de dependência
-@RequiredArgsConstructor
+@Service                    // Informa ao Spring que esta classe contém regras de negócio
+@RequiredArgsConstructor    // Gera automaticamente o construtor para injeção de dependência
 public class BarberService {
 
     // Repository utilizado para salvar e buscar barbeiros
@@ -23,9 +20,6 @@ public class BarberService {
 
         // Cria um novo objeto Barber usando Builder Pattern
         Barber barber = Barber.builder()
-
-                // Gera um UUID único automaticamente
-                .id(UUID.randomUUID())
 
                 // Define o nome recebido da requisição
                 .name(request.name())
