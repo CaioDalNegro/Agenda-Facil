@@ -4,12 +4,15 @@ import { View, Text, TextInput, StyleSheet, Alert } from "react-native";
 import api from "../services/api";
 import ButtonCustom from "../components/ButtonCustom";
 
-export default function RegisterScreen({ navigation }) {
+export default function RegisterScreen({ navigation, route }) {
 
   // Estados dos campos
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const role = route.params?.role;
+  console.log("ROLE RECEBIDA:", role);
 
   // Função responsável por cadastrar usuário
   async function handleRegister() {
@@ -20,7 +23,8 @@ export default function RegisterScreen({ navigation }) {
       const response = await api.post("/auth/register", {
         name,
         email,
-        password
+        password,
+        role
       });
 
       console.log("CADASTRO OK:", response.data);

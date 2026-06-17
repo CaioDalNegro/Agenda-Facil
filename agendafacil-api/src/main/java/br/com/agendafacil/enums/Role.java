@@ -1,7 +1,7 @@
 package br.com.agendafacil.enums;
 
 public enum Role {
-    ADMIN,
-    CLIENT,
-    BARBER
+    OWNER,  // Dono do estabelecimento
+    CLIENT, // Usuário que agenda
+    BARBER  // Funcionário
 }

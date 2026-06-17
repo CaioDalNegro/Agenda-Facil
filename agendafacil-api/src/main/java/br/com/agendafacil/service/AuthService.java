@@ -9,7 +9,6 @@ import br.com.agendafacil.dto.AuthResponse;
 import br.com.agendafacil.dto.LoginRequest;
 import br.com.agendafacil.dto.RegisterRequest;
 import br.com.agendafacil.entity.User;
-import br.com.agendafacil.enums.Role;
 import br.com.agendafacil.repository.UserRepository;
 import br.com.agendafacil.security.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +26,9 @@ public class AuthService {
     // Método cadastro------------------------------------------->
     public AuthResponse register(RegisterRequest request) {
 
+            System.out.println("ROLE NO SERVICE: "
+            + request.role());
+
         if (repository.findByEmail(request.email()).isPresent()) {
             throw new RuntimeException("Email já cadastrado"); // Lança erro customizado
         }
@@ -36,8 +38,12 @@ public class AuthService {
                 .name(request.name()) // Nome vindo do request
                 .email(request.email()) // Email vindo do request
                 .password(passwordEncoder.encode(request.password())) // Criptografa senha
-                .role(Role.CLIENT) // Define role padrão
+                // .role(Role.CLIENT) // Define role padrão
+                .role(request.role()) // Role vindo do request
                 .build(); // Finaliza construção
+
+        System.out.println("ROLE NO USER: "
+        + user.getRole());
             
         repository.save(user); // Salva usuário no banco
         String token = jwtService.generateToken(user); // Gera token JWT

@@ -75,8 +75,17 @@ export default function LoginScreen({ navigation }) {
       />
 
       {/* Link para tela de cadastro */}
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => navigation.navigate("Register")}
+      >
+        <Text style={styles.link}>
+          Não tem uma conta? Cadastre-se
+        </Text>
+      </TouchableOpacity> */}
+
+      {/* Link para tela de ChooseAccountType */}
+      <TouchableOpacity
+        onPress={() => navigation.navigate("ChooseAccountType")}
       >
         <Text style={styles.link}>
           Não tem uma conta? Cadastre-se

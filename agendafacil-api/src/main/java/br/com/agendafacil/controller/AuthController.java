@@ -24,6 +24,8 @@ public class AuthController {
         // System.out.println("USUARIO CADASTRADO");
         // return ResponseEntity.ok(response);
 
+        System.out.println("ROLE NO CONTROLLER: " + request.role());
+
         return ResponseEntity.ok(service.register(request)); // Retorna resposta cadastro
     }
 
