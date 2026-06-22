@@ -44,7 +44,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth                 //Configura permissões das rotas.
                         .requestMatchers(
                             "/auth/**",
-                            "/barbers/**"
+                            "/barbers/**",
+                            "/users/**"
                         ).permitAll()                               //Libera todas as rotas /auth/**
                         .anyRequest().authenticated());             // Qualquer outra rota precisa autenticação.
         return http.build();                                        // Retorna configuração pronta.
