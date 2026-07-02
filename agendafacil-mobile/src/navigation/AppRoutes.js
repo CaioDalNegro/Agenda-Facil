@@ -5,8 +5,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
-import HomeScreen from "../screens/HomeScreen";
 import ChooseAccountTypeScreen from "../screens/ChooseAccountTypeScreen";
+
+import ClientTabNavigator from "./ClientTabNavigator";
 
 import { AuthContext } from "../context/AuthContext";
 
@@ -19,23 +20,46 @@ export default function AppRoutes() {
   return (
 
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
 
-        {
-          authenticated ? (
-            <Stack.Screen name="Home" component={HomeScreen} />
-          ) : (
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
 
-            <>
-              <Stack.Screen name="Login" component={LoginScreen} />
-              <Stack.Screen name="ChooseAccountType" component={ChooseAccountTypeScreen} />
-              <Stack.Screen name="Register" component={RegisterScreen} />
-            </>
+        {authenticated ? (
 
-          )
-        }
+          <Stack.Screen
+            name="ClientTabs"
+            component={ClientTabNavigator}
+          />
+
+        ) : (
+
+          <>
+
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+            />
+
+            <Stack.Screen
+              name="ChooseAccountType"
+              component={ChooseAccountTypeScreen}
+            />
+
+            <Stack.Screen
+              name="Register"
+              component={RegisterScreen}
+            />
+
+          </>
+
+        )}
 
       </Stack.Navigator>
+
     </NavigationContainer>
+
   );
 }
