@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -12,8 +12,50 @@ import {
   MaterialCommunityIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
+import { getToken } from "../storage/authStorage";
 
 export default function HomeScreen() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // exemplo: substituir pela sua URL/headers/autenticação
+    const fetchUser = async () => {
+      try {
+        const token = await getToken();
+        if (!token) {
+          // Usuário não logado: não tenta chamar /me
+          setError('Não autenticado');
+          setLoading(false);
+          return;
+        }
+
+        const res = await fetch('http://192.168.0.187:8080/users/me', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+          },
+        });
+        if (!res.ok) {
+          const text = await res.text().catch(() => null);
+          console.warn('Fetch /me falhou', res.status, text);
+          throw new Error('Erro ao buscar usuário');
+        }
+        const data = await res.json();
+        setUser(data);
+      } catch (e) {
+        console.warn(e);
+        setUser(null);
+        setError(e.message || 'Erro ao buscar usuário');
+      } finally {
+        // garantindo que loading será atualizado caso early-return não tenha sido usado
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -22,12 +64,16 @@ export default function HomeScreen() {
         <View style={styles.header}>
 
           <View>
-            <Text style={styles.hello}>Olá!</Text>
-            <Text style={styles.name}>João Silva</Text>
+            <Text style={styles.hello}>Olá{loading ? '...' : ''}</Text>
+            <Text style={styles.name}>{user ? user.name : 'Usuário'}</Text>
           </View>
 
           <TouchableOpacity style={styles.avatar}>
-            <Text style={styles.avatarText}>JS</Text>
+            <Text style={styles.avatarText}>
+              {user && user.name
+                ? user.name.split(' ').map(n => n[0]).slice(0,2).join('').toUpperCase()
+                : 'US'}
+            </Text>
           </TouchableOpacity>
 
         </View>

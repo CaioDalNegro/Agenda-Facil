@@ -30,6 +30,7 @@ export default function LoginScreen({ navigation }) {
 
       // Salva o token JWT no armazenamento local
       await saveToken(response.data.token);
+      console.log('Token salvo:', response.data.token);
 
       // Atualiza o estado global de autenticação
       login();

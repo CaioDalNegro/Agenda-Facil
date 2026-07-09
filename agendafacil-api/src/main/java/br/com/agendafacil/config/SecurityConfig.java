@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration // Define que essa classe é uma configuração do Spring
 public class SecurityConfig {
@@ -35,19 +36,22 @@ public class SecurityConfig {
     /*
      * Configuração principal da segurança.
      */
-    @Bean
-    public SecurityFilterChain securityFilterChain(
-            HttpSecurity http
-    ) throws Exception {
+        @Bean
+        public SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            br.com.agendafacil.security.JwtAuthenticationFilter jwtAuthFilter
+        ) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())                       // Desabilita CSRF
                 .authorizeHttpRequests(auth -> auth                 //Configura permissões das rotas.
                         .requestMatchers(
                             "/auth/**",
-                            "/barbers/**",
-                            "/users/**"
+                            "/barbers/**"
+                    // "/users/**" requer autenticação
                         ).permitAll()                               //Libera todas as rotas /auth/**
                         .anyRequest().authenticated());             // Qualquer outra rota precisa autenticação.
+        // registra o filtro JWT antes do processamento padrão de autenticação
+        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();                                        // Retorna configuração pronta.
     }
 }
