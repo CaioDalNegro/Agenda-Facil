@@ -21,6 +21,13 @@ export default function ChooseAccountTypeScreen({ navigation }) {
 
     if (!selectedRole) return;
 
+    if (selectedRole === "BARBER") {
+      navigation.navigate("BarberRegister", {
+        role: selectedRole
+      });
+      return;
+    }
+
     navigation.navigate("Register", {
       role: selectedRole
     });
@@ -83,7 +90,10 @@ export default function ChooseAccountTypeScreen({ navigation }) {
           styles.card,
           selectedRole === "BARBER" && styles.selectedCard
         ]}
-        onPress={() => setSelectedRole("BARBER")}
+        onPress={() => {
+          setSelectedRole("BARBER");
+          navigation.navigate("BarberRegister", { role: "BARBER" });
+        }}
       >
 
         <View style={[styles.iconBox, styles.barberIcon]}>

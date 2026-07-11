@@ -1,6 +1,7 @@
 package br.com.agendafacil.service;
 
 import java.util.List;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import br.com.agendafacil.dto.BarberRequest;
 import br.com.agendafacil.entity.Barber;
@@ -13,6 +14,7 @@ public class BarberService {
 
     // Repository utilizado para salvar e buscar barbeiros
     private final BarberRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
     // Método para cadastrar barbeiro ======================>
     public Barber create(BarberRequest request) {
@@ -22,6 +24,11 @@ public class BarberService {
 
                 // Define o nome recebido da requisição
                 .name(request.name())
+
+                // Define os dados de contato recebidos da requisição
+                .email(request.email())
+                .phone(request.phone())
+                .password(passwordEncoder.encode(request.password()))
 
                 // Define a especialidade recebida da requisição
                 .specialty(request.specialty())

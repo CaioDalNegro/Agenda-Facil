@@ -4,5 +4,8 @@ package br.com.agendafacil.dto;
 // os dados do barbeiro
 public record BarberRequest(
         String name,
+        String email,
+        String phone,
+        String password,
         String specialty
 ){}

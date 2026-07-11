@@ -1,6 +1,7 @@
 package br.com.agendafacil.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -34,6 +35,7 @@ public class User implements UserDetails {
 
     // Campo obrigatório e único no banco
     @Column(nullable = false, unique = true)
+    @Email // Valida se o email é válido
     private String email;
 
     // Campo obrigatório

@@ -46,9 +46,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth                 //Configura permissões das rotas.
                         .requestMatchers(
                             "/auth/**",
-                            "/barbers/**"
+                            "/barbers/**",
+                            "/specialties/**"
                     // "/users/**" requer autenticação
-                        ).permitAll()                               //Libera todas as rotas /auth/**
+                        ).permitAll()                               //Libera todas as rotas públicas
                         .anyRequest().authenticated());             // Qualquer outra rota precisa autenticação.
         // registra o filtro JWT antes do processamento padrão de autenticação
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

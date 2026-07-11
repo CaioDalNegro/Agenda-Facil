@@ -6,6 +6,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import ChooseAccountTypeScreen from "../screens/ChooseAccountTypeScreen";
+import BarberRegisterScreen from "../screens/BarberRegisterScreen";
+import BarberScheduleScreen from "../screens/BarberScheduleScreen";
+import RegisterSuccessScreen from "../screens/RegisterSuccessScreen";
 
 import ClientTabNavigator from "./ClientTabNavigator";
 
@@ -46,6 +49,21 @@ export default function AppRoutes() {
             <Stack.Screen
               name="ChooseAccountType"
               component={ChooseAccountTypeScreen}
+            />
+
+            <Stack.Screen
+              name="BarberRegister"
+              component={BarberRegisterScreen}
+            />
+
+            <Stack.Screen
+              name="BarberScheduleScreen"
+              component={BarberScheduleScreen}
+            />
+
+            <Stack.Screen
+              name="RegisterSuccessScreen"
+              component={RegisterSuccessScreen}
             />
 
             <Stack.Screen

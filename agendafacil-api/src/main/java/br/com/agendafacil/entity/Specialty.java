@@ -5,6 +5,7 @@ import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -14,32 +15,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity // Define que essa classe é uma entidade do banco de dados
-@Table(name = "barbers") // Define o nome da tabela no banco
-
+@Table(name = "specialties")
 @Getter // Gera automaticamente os getters
 @Setter // Gera automaticamente os setters
 @NoArgsConstructor // Gera construtor vazio
 @AllArgsConstructor // Gera construtor com todos os atributos
 @Builder // Permite usar o padrão Builder
-public class Barber {
+public class Specialty {
 
     @Id // Define como chave primária da tabela
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID) // Define que o valor será gerado automaticamente como UUID
     private UUID id;
 
-    // Campo obrigatório
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true) // Define que o campo é obrigatório e único
     private String name;
-
-    @Column(nullable = true)
-    private String email;
-
-    @Column(nullable = true)
-    private String phone;
-
-    @Column(nullable = true)
-    private String password;
-
-    @Column(nullable = true)
-    private String specialty;
 }
