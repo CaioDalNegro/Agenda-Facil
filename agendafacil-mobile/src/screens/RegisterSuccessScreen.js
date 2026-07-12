@@ -11,6 +11,7 @@ import {
 import { Check } from 'lucide-react-native';
 
 export default function RegisterSuccessScreen({ navigation, route }) {
+  // Recebe os dados do barbeiro enviados pela tela anterior para exibir na confirmação.
   const barberData = route?.params?.barberData;
   const barberName = barberData?.name || 'Barbeiro';
   const specialtyList = barberData?.specialty

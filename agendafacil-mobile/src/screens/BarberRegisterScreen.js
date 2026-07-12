@@ -12,6 +12,7 @@ import Icon from "react-native-vector-icons/Feather";
 import api from "../services/api";
 
 export default function BarberRegisterScreen({ navigation }) {
+  // Armazena as especialidades marcadas pelo barbeiro durante o cadastro.
   const [selectedSpecialties, setSelectedSpecialties] = useState([]);
   const [specialties, setSpecialties] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,6 +22,7 @@ export default function BarberRegisterScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  // Busca as especialidades disponíveis na API assim que a tela abre.
   useEffect(() => {
     async function loadSpecialties() {
       try {
@@ -36,6 +38,7 @@ export default function BarberRegisterScreen({ navigation }) {
     loadSpecialties();
   }, []);
 
+  // Marca ou desmarca uma especialidade ao tocar no botão correspondente.
   function toggleSpecialty(item) {
     const isSelected = selectedSpecialties.some((s) => s.id === item.id);
 
@@ -46,6 +49,7 @@ export default function BarberRegisterScreen({ navigation }) {
     }
   }
 
+  // Valida os campos do formulário e avança para a tela de horários.
   function handleNext() {
     if (!fullName.trim()) {
       Alert.alert("Erro", "Informe o nome completo.");

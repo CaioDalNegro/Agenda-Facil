@@ -26,6 +26,7 @@ const INITIAL_DAYS = [
 ];
 
 export default function BarberScheduleScreen({ navigation, route }) {
+  // Lista de dias da semana com horários e status de ativação.
   const [days, setDays] = useState(INITIAL_DAYS);
   const [loading, setLoading] = useState(false);
   const [pickerVisible, setPickerVisible] = useState(false);
@@ -33,6 +34,7 @@ export default function BarberScheduleScreen({ navigation, route }) {
   const [selectedDayId, setSelectedDayId] = useState(null);
   const barberData = route.params?.barberData;
 
+  // Ativa ou desativa um dia de atendimento ao alternar o switch.
   const toggleSwitch = (id) => {
     setDays((prevDays) =>
       prevDays.map((day) =>
@@ -71,6 +73,7 @@ export default function BarberScheduleScreen({ navigation, route }) {
     setPickerVisible(false);
   };
 
+  // Finaliza o cadastro, envia a disponibilidade para a API e navega para a tela de sucesso.
   async function handleFinishRegistration() {
     if (!barberData?.name) {
       Alert.alert('Erro', 'Dados do barbeiro não encontrados.');

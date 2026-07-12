@@ -8,7 +8,8 @@ import api from "../services/api";
 // Componente da tela de cadastro
 export default function RegisterScreen({ navigation, route }) {
 
-  // Estados dos campos do formulário ==========================
+  // Recebe a navegação e os parâmetros da tela anterior.
+  // Aqui armazenamos os valores digitados pelo usuário em estados locais.
   const [name, setName] = useState(""); // Nome do usuário
   const [email, setEmail] = useState(""); // Email do usuário
   const [phone, setPhone] = useState(""); // Telefone do usuário
@@ -21,7 +22,7 @@ export default function RegisterScreen({ navigation, route }) {
   // Recebe o tipo de perfil enviado pela tela anterior
   const role = route.params?.role;
 
-  // Função responsável pelo cadastro ==========================
+  // Função responsável por validar os dados e enviar o cadastro para a API.
   async function handleRegister() {
 
     // Verifica se as duas senhas são iguais

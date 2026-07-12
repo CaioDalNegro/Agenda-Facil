@@ -13,10 +13,10 @@ import {
 
 export default function ChooseAccountTypeScreen({ navigation }) {
 
-  // Guarda qual perfil foi escolhido
+  // Guarda qual perfil o usuário escolheu para decidir a próxima tela.
   const [selectedRole, setSelectedRole] = useState(null);
 
-  // Navega para o cadastro
+  // Direciona o usuário para a tela correta de cadastro de acordo com o tipo escolhido.
   function handleContinue() {
 
     if (!selectedRole) return;
