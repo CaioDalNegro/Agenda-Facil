@@ -39,7 +39,6 @@ export default function RegisterScreen({ navigation, route }) {
       await api.post("/auth/register", {
         name,
         email,
-        phone,
         password,
         role
       });

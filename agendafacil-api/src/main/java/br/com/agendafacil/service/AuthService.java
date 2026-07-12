@@ -37,7 +37,6 @@ public class AuthService {
         User user = User.builder()
                 .name(request.name()) // Nome vindo do request
                 .email(request.email()) // Email vindo do request
-                .phone(request.phone()) // Telefone vindo do request
                 .password(passwordEncoder.encode(request.password())) // Criptografa senha
                 // .role(Role.CLIENT) // Define role padrão
                 .role(request.role()) // Role vindo do request

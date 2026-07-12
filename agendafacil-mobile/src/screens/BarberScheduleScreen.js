@@ -77,6 +77,13 @@ export default function BarberScheduleScreen({ navigation, route }) {
       return;
     }
 
+    const availability = days.map((day) => ({
+      day: day.label,
+      active: day.active,
+      start: day.start,
+      end: day.end,
+    }));
+
     try {
       setLoading(true);
 
@@ -86,9 +93,15 @@ export default function BarberScheduleScreen({ navigation, route }) {
         phone: barberData.phone,
         password: barberData.password,
         specialty: barberData.specialty || 'Geral',
+        availability,
       });
 
-      navigation.navigate('RegisterSuccessScreen');
+      navigation.navigate('RegisterSuccessScreen', {
+        barberData: {
+          ...barberData,
+          availability,
+        },
+      });
     } catch (error) {
       console.log(error);
       Alert.alert('Erro', 'Não foi possível cadastrar o barbeiro no banco de dados.');

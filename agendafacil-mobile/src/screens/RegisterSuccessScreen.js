@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Check } from 'lucide-react-native';
 
-export default function RegisterSuccessScreen({ route }) {
+export default function RegisterSuccessScreen({ navigation, route }) {
   const barberData = route?.params?.barberData;
   const barberName = barberData?.name || 'Barbeiro';
   const specialtyList = barberData?.specialty
@@ -101,7 +101,13 @@ export default function RegisterSuccessScreen({ route }) {
 
       {/* Footer Button */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.primaryButton}>
+        <TouchableOpacity
+          style={styles.primaryButton}
+          onPress={() => navigation.reset({
+            index: 0,
+            routes: [{ name: 'LoginScreen' }],
+          })}
+        >
           <Text style={styles.primaryButtonText}>Ir para o início</Text>
         </TouchableOpacity>
       </View>

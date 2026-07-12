@@ -7,7 +7,6 @@ import br.com.agendafacil.enums.Role;
 public record RegisterRequest(
         String name,
         String email,
-        String phone,
         String password,
         Role role) {
 }

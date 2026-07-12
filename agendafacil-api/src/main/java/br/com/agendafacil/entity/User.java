@@ -38,10 +38,6 @@ public class User implements UserDetails {
     @Email // Valida se o email é válido
     private String email;
 
-    // Campo para telefone do usuário
-    @Column
-    private String phone;
-
     // Campo obrigatório
     @Column(nullable = false)
     private String password;
