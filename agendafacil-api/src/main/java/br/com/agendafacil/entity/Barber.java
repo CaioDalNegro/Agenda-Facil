@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,15 +31,20 @@ public class Barber {
 
     // Campo obrigatório
     @Column(nullable = false)
+    @NotBlank(message = "Nome é obrigatório")
     private String name;
 
     @Column(nullable = true)
+    @NotBlank(message = "Email é obrigatório")
+    @Email(message = "Email inválido")
     private String email;
 
     @Column(nullable = true)
+    @NotBlank(message = "Telefone é obrigatório")
     private String phone;
 
     @Column(nullable = true)
+    @NotBlank(message = "Senha é obrigatória")
     private String password;
 
     @Column(nullable = true)

@@ -12,7 +12,7 @@ import {
   Platform,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import api from '../services/api';
+import api from '../../services/api';
 import { ArrowLeft, Info } from 'lucide-react-native';
 
 const INITIAL_DAYS = [

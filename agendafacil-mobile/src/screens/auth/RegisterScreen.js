@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet, Alert, TouchableOpacity, ScrollView 
 import { Ionicons, Feather } from "@expo/vector-icons";
 
 // Serviço responsável pelas requisições para a API
-import api from "../services/api";
+import api from "../../services/api";
 
 // Componente da tela de cadastro
 export default function RegisterScreen({ navigation, route }) {

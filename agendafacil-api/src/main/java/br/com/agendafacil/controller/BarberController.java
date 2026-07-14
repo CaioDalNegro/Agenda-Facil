@@ -1,10 +1,12 @@
 package br.com.agendafacil.controller;
 
 import java.util.List;
+
 import org.springframework.web.bind.annotation.*;
 import br.com.agendafacil.dto.BarberRequest;
 import br.com.agendafacil.entity.Barber;
 import br.com.agendafacil.service.BarberService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 
@@ -18,7 +20,7 @@ public class BarberController {
 
     // Endpoint para cadastrar barbeiro ================>
     @PostMapping
-    public Barber create(@RequestBody BarberRequest request) { // Recebe os dados enviados no corpo da requisição
+    public Barber create(@Valid @RequestBody BarberRequest request) { // Recebe os dados enviados no corpo da requisição
 
         // Chama o método create do Service
         return service.create(request);

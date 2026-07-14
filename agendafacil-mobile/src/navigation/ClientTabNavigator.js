@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
 
-import HomeScreen from "../screens/HomeScreen";
-import AgendaScreen from "../screens/AgendaScreen";
-import HistoryScreen from "../screens/HistoryScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import HomeScreen from "../screens/client/HomeScreen";
+import AgendaScreen from "../screens/client/AgendaScreen";
+import HistoryScreen from "../screens/client/HistoryScreen";
+import ProfileScreen from "../screens/client/ProfileScreen";
 
 const Tab = createBottomTabNavigator();
 

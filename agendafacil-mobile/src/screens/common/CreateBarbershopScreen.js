@@ -8,9 +8,9 @@ import {
   Alert
 } from "react-native";
 
-import api from "../services/api";
+import api from "../../services/api";
 
-import ButtonCustom from "../components/ButtonCustom";
+import ButtonCustom from "../../components/ButtonCustom";
 
 export default function CreateBarbershopScreen({ navigation }) {
 

@@ -9,7 +9,7 @@ import {
   Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
-import api from "../services/api";
+import api from "../../services/api";
 
 export default function BarberRegisterScreen({ navigation }) {
   // Armazena as especialidades marcadas pelo barbeiro durante o cadastro.

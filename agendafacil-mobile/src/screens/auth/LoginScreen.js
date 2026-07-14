@@ -4,9 +4,9 @@ import { useContext, useState } from "react";
 import { View, Text, TextInput, StyleSheet, Alert, TouchableOpacity } from "react-native";
 
 import { Feather } from "@expo/vector-icons";           // Biblioteca de ícones Feather
-import api from "../services/api";                      // Serviço responsável pelas requisições HTTP para o backend
-import { saveToken } from "../storage/authStorage";     // Função responsável por salvar o token no armazenamento local
-import { AuthContext } from "../context/AuthContext";   // Contexto responsável pelo controle de autenticação
+import api from "../../services/api";                      // Serviço responsável pelas requisições HTTP para o backend
+import { saveToken } from "../../storage/authStorage";     // Função responsável por salvar o token no armazenamento local
+import { AuthContext } from "../../context/AuthContext";   // Contexto responsável pelo controle de autenticação
 
 // Componente da tela de Login
 export default function LoginScreen({ navigation }) {

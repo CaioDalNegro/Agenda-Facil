@@ -3,12 +3,12 @@ import { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import LoginScreen from "../screens/LoginScreen";
-import RegisterScreen from "../screens/RegisterScreen";
-import ChooseAccountTypeScreen from "../screens/ChooseAccountTypeScreen";
-import BarberRegisterScreen from "../screens/BarberRegisterScreen";
-import BarberScheduleScreen from "../screens/BarberScheduleScreen";
-import RegisterSuccessScreen from "../screens/RegisterSuccessScreen";
+import LoginScreen from "../screens/auth/LoginScreen";
+import RegisterScreen from "../screens/auth/RegisterScreen";
+import ChooseAccountTypeScreen from "../screens/auth/ChooseAccountTypeScreen";
+import BarberRegisterScreen from "../screens/barber/BarberRegisterScreen";
+import BarberScheduleScreen from "../screens/barber/BarberScheduleScreen";
+import RegisterSuccessScreen from "../screens/barber/RegisterSuccessScreen";
 
 import ClientTabNavigator from "./ClientTabNavigator";
 

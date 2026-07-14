@@ -12,7 +12,7 @@ import {
   MaterialCommunityIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
-import { getToken } from "../storage/authStorage";
+import { getToken } from "../../storage/authStorage";
 
 export default function HomeScreen() {
   const [user, setUser] = useState(null);
