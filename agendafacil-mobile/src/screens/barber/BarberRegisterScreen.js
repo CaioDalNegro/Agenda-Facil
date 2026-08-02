@@ -187,7 +187,6 @@ export default function BarberRegisterScreen({ navigation }) {
       <View style={styles.divider} />
 
       {/* Especialidades */}
-
       <Text style={styles.label}>ESPECIALIDADES</Text>
 
       <Text style={styles.description}>

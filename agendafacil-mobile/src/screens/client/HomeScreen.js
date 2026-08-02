@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import {
-  SafeAreaView,
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import {
   MaterialCommunityIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
-import { getToken } from "../../storage/authStorage";
+import api from "../../services/api";
 
 export default function HomeScreen() {
   const [user, setUser] = useState(null);
@@ -31,19 +31,8 @@ export default function HomeScreen() {
           return;
         }
 
-        const res = await fetch('http://192.168.0.187:8080/users/me', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: 'application/json',
-          },
-        });
-        if (!res.ok) {
-          const text = await res.text().catch(() => null);
-          console.warn('Fetch /me falhou', res.status, text);
-          throw new Error('Erro ao buscar usuário');
-        }
-        const data = await res.json();
-        setUser(data);
+        const response = await api.get('/users/me');
+        setUser(response.data);
       } catch (e) {
         console.warn(e);
         setUser(null);

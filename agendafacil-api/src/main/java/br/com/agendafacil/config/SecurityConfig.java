@@ -2,6 +2,7 @@ package br.com.agendafacil.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,15 +43,18 @@ public class SecurityConfig {
             br.com.agendafacil.security.JwtAuthenticationFilter jwtAuthFilter
         ) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())                       // Desabilita CSRF
-                .authorizeHttpRequests(auth -> auth                 //Configura permissões das rotas.
-                        .requestMatchers(
-                            "/auth/**",
-                            "/barbers/**",
-                            "/specialties/**"
-                    // "/users/**" requer autenticação
-                        ).permitAll()                               //Libera todas as rotas públicas
-                        .anyRequest().authenticated());             // Qualquer outra rota precisa autenticação.
+            .csrf(csrf -> csrf.disable())                       // Desabilita CSRF
+            .authorizeHttpRequests(auth -> auth                 //Configura permissões das rotas.
+                // Permite acesso público para autenticação e leitura de barbearias
+                .requestMatchers(
+                    "/auth/**",
+                    "/barbers/**",
+                    "/specialties/**"
+                ).permitAll()
+                .requestMatchers(HttpMethod.GET, "/barbershops/**").permitAll()
+                // Para criação/alteração de barbearias, exige autenticação
+                .requestMatchers("/barbershops/**").authenticated()
+                .anyRequest().authenticated());             // Qualquer outra rota precisa autenticação.
         // registra o filtro JWT antes do processamento padrão de autenticação
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();                                        // Retorna configuração pronta.

@@ -21,16 +21,19 @@ export default function ChooseAccountTypeScreen({ navigation }) {
 
     if (!selectedRole) return;
 
-    if (selectedRole === "BARBER") {
-      navigation.navigate("BarberRegister", {
-        role: selectedRole
-      });
-      return;
-    }
+    switch (selectedRole) {
+      case "CLIENT":
+        navigation.navigate("Register", { role: "CLIENT" });
+        break;
 
-    navigation.navigate("Register", {
-      role: selectedRole
-    });
+      case "BARBER":
+        navigation.navigate("BarberRegister", { role: "BARBER" });
+        break;
+
+      case "OWNER":
+        navigation.navigate("BarbershopRegister", { role: "OWNER" });
+        break;
+    }
   }
 
   return (
@@ -130,7 +133,10 @@ export default function ChooseAccountTypeScreen({ navigation }) {
           styles.card,
           selectedRole === "OWNER" && styles.selectedCard
         ]}
-        onPress={() => setSelectedRole("OWNER")}
+        onPress={() => {
+          setSelectedRole("OWNER");
+          navigation.navigate("BarbershopRegister", { role: "OWNER" });
+        }}
       >
 
         <View style={[styles.iconBox, styles.shopIcon]}>

@@ -1,0 +1,11 @@
+ALTER TABLE barbershops
+ADD COLUMN email VARCHAR(150);
+
+ALTER TABLE barbershops
+ADD COLUMN city VARCHAR(100);
+
+ALTER TABLE barbershops
+ADD COLUMN state VARCHAR(2);
+
+ALTER TABLE barbershops
+ADD COLUMN description VARCHAR(1000);

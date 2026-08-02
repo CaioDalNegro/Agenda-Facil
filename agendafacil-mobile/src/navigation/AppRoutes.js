@@ -9,6 +9,9 @@ import ChooseAccountTypeScreen from "../screens/auth/ChooseAccountTypeScreen";
 import BarberRegisterScreen from "../screens/barber/BarberRegisterScreen";
 import BarberScheduleScreen from "../screens/barber/BarberScheduleScreen";
 import RegisterSuccessScreen from "../screens/barber/RegisterSuccessScreen";
+import BarbershopRegisterScreen from "../screens/barbershop/BarbershopRegisterScreen";
+import BarbershopScheduleScreen from "../screens/barbershop/BarbershopScheduleScreen";
+import RegisterBarbershopSuccessScreen from "../screens/barbershop/RegisterBarbershopSuccessScreen";
 
 import ClientTabNavigator from "./ClientTabNavigator";
 
@@ -69,6 +72,21 @@ export default function AppRoutes() {
             <Stack.Screen
               name="Register"
               component={RegisterScreen}
+            />
+
+            <Stack.Screen
+              name="BarbershopRegister"
+              component={BarbershopRegisterScreen}
+            />
+
+            <Stack.Screen 
+              name="BarbershopScheduleScreen"
+              component={BarbershopScheduleScreen}
+            />
+
+            <Stack.Screen
+              name="RegisterBarbershopSuccessScreen"
+              component={RegisterBarbershopSuccessScreen}
             />
 
           </>

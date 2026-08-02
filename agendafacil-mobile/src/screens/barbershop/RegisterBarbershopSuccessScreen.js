@@ -10,14 +10,11 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Check } from 'lucide-react-native';
 
-export default function RegisterSuccessScreen({ navigation, route }) {
+export default function RegisterBarbershopSuccessScreen({ navigation, route }) {
   // Recebe os dados do barbeiro enviados pela tela anterior para exibir na confirmação.
-  const barberData = route?.params?.barberData;
-  const barberName = barberData?.name || 'Barbeiro';
-  const specialtyList = barberData?.specialty
-    ? barberData.specialty.split(',').map((item) => item.trim()).filter(Boolean)
-    : [];
-  const avatarInitials = barberName
+  const barbershopData = route?.params?.barbershopData;
+  const barbershopName = barbershopData?.barberName || 'Barbearia';
+  const avatarInitials = barbershopName
     .split(' ')
     .slice(0, 2)
     .map((word) => word[0])
@@ -49,24 +46,18 @@ export default function RegisterSuccessScreen({ navigation, route }) {
               <Text style={styles.avatarText}>{avatarInitials}</Text>
             </View>
             <View style={styles.profileInfo}>
-              <Text style={styles.profileName}>{barberName}</Text>
+              <Text style={styles.profileName}>{barbershopName}</Text>
               <Text style={styles.profileRole}>Barbeiro · Ativo</Text>
             </View>
           </View>
 
           {/* Tags Container */}
           <View style={styles.tagsContainer}>
-            {specialtyList.length > 0 ? (
-              specialtyList.map((tag, index) => (
-                <View key={index} style={styles.tag}>
-                  <Text style={styles.tagText}>{tag}</Text>
-                </View>
-              ))
-            ) : (
-              <View style={styles.tag}>
-                <Text style={styles.tagText}>Geral</Text>
-              </View>
-            )}
+            <View style={styles.tag}>
+              <Text style={styles.tagText}>
+                {barbershopData?.city || 'Localização não informada'}
+              </Text>
+            </View>
           </View>
         </View>
 
@@ -74,8 +65,8 @@ export default function RegisterSuccessScreen({ navigation, route }) {
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>DISPONIBILIDADE</Text>
           <View style={styles.daysGrid}>
-            {barberData?.availability?.length > 0 ? (
-              barberData.availability.map((item, index) => (
+            {barbershopData?.availability?.length > 0 ? (
+              barbershopData.availability.map((item, index) => (
                 <View
                   key={index}
                   style={[

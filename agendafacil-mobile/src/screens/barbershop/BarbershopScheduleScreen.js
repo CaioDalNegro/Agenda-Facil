@@ -5,12 +5,20 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView,
   StatusBar,
   Switch,
+  Alert,
+  Platform,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import api from '../../services/api';
+import { getToken } from '../../storage/authStorage';
 
-export default function BarbershopScheduleScreen() {
+export default function BarbershopScheduleScreen({ navigation, route }) {
+
+  const { barbershopData } = route.params;
+
   // Estado para gerenciar os horários de cada dia
   const [schedule, setSchedule] = useState([
     { id: 1, day: 'Seg', start: '08:00', end: '18:00', active: true },
@@ -22,6 +30,11 @@ export default function BarbershopScheduleScreen() {
     { id: 7, day: 'Dom', start: '--', end: '--', active: false },
   ]);
 
+  const [loading, setLoading] = useState(false);
+  const [pickerVisible, setPickerVisible] = useState(false);
+  const [selectedField, setSelectedField] = useState(null); // 'start' | 'end'
+  const [selectedDayId, setSelectedDayId] = useState(null);
+
   // Função para alternar o switch de um dia específico
   const toggleSwitch = (id) => {
     setSchedule((prev) =>
@@ -31,13 +44,92 @@ export default function BarbershopScheduleScreen() {
     );
   };
 
+  // Abre o seletor de horário para o dia/campo tocado
+  const openTimePicker = (dayId, field) => {
+    setSelectedDayId(dayId);
+    setSelectedField(field);
+    setPickerVisible(true);
+  };
+
+  // Aplica o horário escolhido no dia correspondente
+  const handleTimeChange = (event, selectedTime) => {
+    if (event.type === 'dismissed') {
+      setPickerVisible(false);
+      return;
+    }
+
+    if (selectedTime && selectedDayId && selectedField) {
+      const formattedTime = selectedTime.toTimeString().slice(0, 5);
+
+      setSchedule((prev) =>
+        prev.map((item) =>
+          item.id === selectedDayId
+            ? { ...item, [selectedField]: formattedTime }
+            : item
+        )
+      );
+    }
+
+    setPickerVisible(false);
+  };
+
+  // Finaliza o cadastro, envia os dados da barbearia + horários para a API
+  async function handleFinishRegistration() {
+    if (!barbershopData?.barberName) {
+      Alert.alert('Erro', 'Dados da barbearia não encontrados.');
+      return;
+    }
+
+    const token = await getToken();
+    if (!token) {
+      Alert.alert('Autenticação necessária', 'Faça login para cadastrar a barbearia.');
+      navigation.navigate('Login');
+      return;
+    }
+
+    const availability = schedule.map((item) => ({
+      day: item.day,
+      active: item.active,
+      start: item.start,
+      end: item.end,
+    }));
+
+    try {
+      setLoading(true);
+
+      await api.post('/barbershops', {
+        name: barbershopData.barberName,
+        ownerName: barbershopData.ownerName,
+        email: barbershopData.email,
+        phone: barbershopData.phone,
+        address: barbershopData.address,
+        city: barbershopData.city,
+        state: barbershopData.state,
+        description: barbershopData.description,
+        availability,
+      });
+
+      navigation.navigate('RegisterBarbershopSuccessScreen', {
+        barbershopData: {
+          ...barbershopData,
+          availability,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Erro', 'Não foi possível cadastrar a barbearia no banco de dados.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#121212" />
 
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton}>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
           <Text style={styles.backIconText}>←</Text>
         </TouchableOpacity>
         <View>
@@ -46,13 +138,13 @@ export default function BarbershopScheduleScreen() {
         </View>
       </View>
 
-      {/* Barra de Progresso (75% concluído) */}
+      {/* Barra de Progresso */}
       <View style={styles.progressBarBg}>
         <View style={styles.progressBarActive} />
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        
+
         {/* Banner Informativo */}
         <View style={styles.infoBanner}>
           <View style={styles.infoCircle}>
@@ -68,17 +160,16 @@ export default function BarbershopScheduleScreen() {
           {schedule.map((item) => (
             <View key={item.id} style={styles.rowWrapper}>
               <View style={[styles.row, !item.active && styles.rowDisabled]}>
-                
-                {/* Nome do Dia */}
+
                 <Text style={[styles.dayLabel, !item.active && styles.textDisabled]}>
                   {item.day}
                 </Text>
 
-                {/* Seletor de Horários */}
                 <View style={styles.timeInputsWrapper}>
-                  <TouchableOpacity 
+                  <TouchableOpacity
                     style={[styles.timeBox, !item.active && styles.timeBoxDisabled]}
                     disabled={!item.active}
+                    onPress={() => openTimePicker(item.id, 'start')}
                   >
                     <Text style={[styles.timeText, !item.active && styles.textDisabled]}>
                       {item.start}
@@ -87,9 +178,10 @@ export default function BarbershopScheduleScreen() {
 
                   <Text style={styles.timeSeparator}>-</Text>
 
-                  <TouchableOpacity 
+                  <TouchableOpacity
                     style={[styles.timeBox, !item.active && styles.timeBoxDisabled]}
                     disabled={!item.active}
+                    onPress={() => openTimePicker(item.id, 'end')}
                   >
                     <Text style={[styles.timeText, !item.active && styles.textDisabled]}>
                       {item.end}
@@ -97,7 +189,6 @@ export default function BarbershopScheduleScreen() {
                   </TouchableOpacity>
                 </View>
 
-                {/* Switch de Ativação */}
                 <Switch
                   trackColor={{ false: '#3f3f46', true: '#ca8a04' }}
                   thumbColor={item.active ? '#eab308' : '#71717a'}
@@ -106,18 +197,36 @@ export default function BarbershopScheduleScreen() {
                   value={item.active}
                 />
               </View>
-              {/* Linha divisória entre os dias */}
               <View style={styles.lineDivider} />
             </View>
           ))}
         </View>
 
         {/* Botão Finalizar */}
-        <TouchableOpacity style={styles.finishButton}>
-          <Text style={styles.finishButtonText}>Finalizar cadastro</Text>
+        <TouchableOpacity
+          style={styles.finishButton}
+          onPress={handleFinishRegistration}
+          disabled={loading}
+        >
+          <Text style={styles.finishButtonText}>
+            {loading ? 'Cadastrando...' : 'Finalizar cadastro'}
+          </Text>
         </TouchableOpacity>
 
       </ScrollView>
+
+      {pickerVisible && (
+        <DateTimePicker
+          value={new Date(2024, 0, 1, 12, 0)}
+          mode="time"
+          is24Hour={true}
+          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+          themeVariant="dark"
+          accentColor="#eab308"
+          textColor="#FFFFFF"
+          onChange={handleTimeChange}
+        />
+      )}
     </SafeAreaView>
   );
 }
