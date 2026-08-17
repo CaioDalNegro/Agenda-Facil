@@ -40,8 +40,7 @@ export default function RegisterScreen({ navigation, route }) {
       await api.post("/auth/register", {
         name,
         email,
-        password,
-        role
+        password
       });
 
       // Exibe mensagem de sucesso

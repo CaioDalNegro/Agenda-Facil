@@ -1,10 +1,9 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// Cria uma instância do axios com URL base do backend
 const api = axios.create({
-  baseURL: "http://192.168.0.187:8080", // IP da sua máquina (backend Spring Boot)
-  timeout: 10000, // evita travar requisições infinitas
+  baseURL: process.env.EXPO_PUBLIC_API_URL || "http://192.168.0.187:8080",
+  timeout: 10000,
 });
 
 api.interceptors.request.use(
@@ -31,5 +30,4 @@ api.interceptors.response.use(
   }
 );
 
-// Exportação padrão correta
 export default api;

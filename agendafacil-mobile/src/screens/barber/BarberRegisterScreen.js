@@ -30,6 +30,10 @@ export default function BarberRegisterScreen({ navigation }) {
         setSpecialties(response.data || []);
       } catch (error) {
         console.error("Erro ao carregar especialidades:", error);
+        Alert.alert(
+          "Conexão indisponível",
+          "Não foi possível carregar as especialidades. Verifique se a API está em execução."
+        );
       } finally {
         setLoading(false);
       }
@@ -81,7 +85,7 @@ export default function BarberRegisterScreen({ navigation }) {
 
   return (
     <ScrollView style={styles.container}>
-      {/* Header */}
+      {/* Cabeçalho */}
 
       <TouchableOpacity style={styles.backButton}>
         <Icon name="arrow-left" size={22} color="#FFF" />
@@ -90,7 +94,7 @@ export default function BarberRegisterScreen({ navigation }) {
       <Text style={styles.title}>Criar conta</Text>
       <Text style={styles.subtitle}>Perfil de barbeiro</Text>
 
-      {/* Progress */}
+      {/* Progresso */}
 
       <View style={styles.progressBackground}>
         <View style={styles.progressFill} />

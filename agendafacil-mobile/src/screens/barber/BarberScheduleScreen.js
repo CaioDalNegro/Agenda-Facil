@@ -117,7 +117,7 @@ export default function BarberScheduleScreen({ navigation, route }) {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#121212" />
       
-      {/* Header */}
+      {/* Cabeçalho */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton}>
           <ArrowLeft color="#FFFFFF" size={20} />
@@ -128,7 +128,7 @@ export default function BarberScheduleScreen({ navigation, route }) {
         </View>
       </View>
 
-      {/* Progress Bar */}
+      {/* Barra de progresso */}
       <View style={styles.progressBarBackground}>
         <View style={styles.progressBarFill} />
       </View>
@@ -142,7 +142,7 @@ export default function BarberScheduleScreen({ navigation, route }) {
           </Text>
         </View>
 
-        {/* Schedule List */}
+        {/* Lista de horários */}
         <View style={styles.listContainer}>
           {days.map((day) => (
             <View key={day.id} style={styles.dayRow}>
@@ -176,7 +176,7 @@ export default function BarberScheduleScreen({ navigation, route }) {
                 </TouchableOpacity>
               </View>
 
-              {/* Toggle Switch */}
+              {/* Alternador de disponibilidade */}
               <Switch
                 trackColor={{ false: '#333333', true: '#E5B842' }}
                 thumbColor={day.active ? '#FFFFFF' : '#888888'}
@@ -202,7 +202,7 @@ export default function BarberScheduleScreen({ navigation, route }) {
         />
       )}
 
-      {/* Footer Button */}
+      {/* Botão inferior */}
       <View style={styles.footer}>
         <TouchableOpacity
           style={styles.submitButton}

@@ -93,10 +93,7 @@ export default function ChooseAccountTypeScreen({ navigation }) {
           styles.card,
           selectedRole === "BARBER" && styles.selectedCard
         ]}
-        onPress={() => {
-          setSelectedRole("BARBER");
-          navigation.navigate("BarberRegister", { role: "BARBER" });
-        }}
+        onPress={() => setSelectedRole("BARBER")}
       >
 
         <View style={[styles.iconBox, styles.barberIcon]}>
@@ -133,10 +130,7 @@ export default function ChooseAccountTypeScreen({ navigation }) {
           styles.card,
           selectedRole === "OWNER" && styles.selectedCard
         ]}
-        onPress={() => {
-          setSelectedRole("OWNER");
-          navigation.navigate("BarbershopRegister", { role: "OWNER" });
-        }}
+        onPress={() => setSelectedRole("OWNER")}
       >
 
         <View style={[styles.iconBox, styles.shopIcon]}>
@@ -169,8 +163,9 @@ export default function ChooseAccountTypeScreen({ navigation }) {
 
       {/* Botão continuar */}
       <TouchableOpacity
-        style={styles.button}
+        style={[styles.button, !selectedRole && styles.buttonDisabled]}
         onPress={handleContinue}
+        disabled={!selectedRole}
       >
 
         <Text style={styles.buttonText}>
@@ -266,7 +261,14 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 25
+    marginTop: 25,
+    backgroundColor: "#F0C040"
+  },
+
+  buttonDisabled: {
+    backgroundColor: "#4A4A4A",
+    borderColor: "#4A4A4A",
+    opacity: 0.7
   },
 
   buttonText: {

@@ -2,35 +2,32 @@ package br.com.agendafacil.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import br.com.agendafacil.dto.BarberRequest;
-import br.com.agendafacil.entity.Barber;
+import br.com.agendafacil.dto.BarberResponse;
 import br.com.agendafacil.service.BarberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-
-@RestController // Define esta classe como Controller REST
-@RequestMapping("/barbers") // URL base dos endpoints
-@RequiredArgsConstructor // Cria construtor automaticamente
+@RestController
+@RequestMapping("/barbers")
+@RequiredArgsConstructor
 public class BarberController {
 
-    // Injeta o Service responsável pelas regras de negócio
     private final BarberService service;
 
-    // Endpoint para cadastrar barbeiro ================>
     @PostMapping
-    public Barber create(@Valid @RequestBody BarberRequest request) { // Recebe os dados enviados no corpo da requisição
-
-        // Chama o método create do Service
+    public BarberResponse create(@Valid @RequestBody BarberRequest request) {
         return service.create(request);
     }
 
-    // Endipoint para listar barbeiros ==========>
     @GetMapping
-    public List<Barber> findAll() {
-
-        // Chama o Service e retorna todos os barbeiros
+    public List<BarberResponse> findAll() {
         return service.findAll();
     }
 }

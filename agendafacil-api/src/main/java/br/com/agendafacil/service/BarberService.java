@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import br.com.agendafacil.dto.BarberRequest;
+import br.com.agendafacil.dto.BarberResponse;
 import br.com.agendafacil.entity.Barber;
 import br.com.agendafacil.repository.BarberRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class BarberService {
     private final PasswordEncoder passwordEncoder;
 
     // Método para cadastrar barbeiro ======================>
-    public Barber create(BarberRequest request) {
+    public BarberResponse create(BarberRequest request) {
 
         // Cria um novo objeto Barber usando Builder Pattern
         Barber barber = Barber.builder()
@@ -38,13 +39,19 @@ public class BarberService {
 
         // Salva o barbeiro no banco de dados
         // e retorna o objeto salvo
-        return repository.save(barber);
+        // Retorna um DTO para não expor a senha criptografada.
+        return toResponse(repository.save(barber));
     }
 
     // Método para listar barbeiros ======================>
-    public List<Barber> findAll() {
+    public List<BarberResponse> findAll() {
 
         // Busca todos os registros da tabela barbers
-        return repository.findAll();
+        // Usa o mesmo DTO para evitar a exposição acidental de dados sensíveis.
+        return repository.findAll().stream().map(this::toResponse).toList();
+    }
+
+    private BarberResponse toResponse(Barber barber) {
+        return new BarberResponse(barber.getId(), barber.getName(), barber.getSpecialty());
     }
 }

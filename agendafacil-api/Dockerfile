@@ -1,20 +1,15 @@
-# Usa imagem Java 21
-FROM eclipse-temurin:21-jdk
-
-# Define pasta interna
+FROM eclipse-temurin:17-jdk AS build
 WORKDIR /app
-
-# Copia projeto
-COPY . .
-
-# Permite executar Maven Wrapper
-RUN chmod +x mvnw
-
-# Gera arquivo .jar
+COPY .mvn .mvn
+COPY mvnw pom.xml ./
+RUN chmod +x mvnw && ./mvnw dependency:go-offline
+COPY src src
 RUN ./mvnw clean package -DskipTests
 
-# Expõe porta da API
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+RUN useradd --system --uid 10001 appuser
+COPY --from=build /app/target/agendafacil-api-0.0.1-SNAPSHOT.jar app.jar
+USER appuser
 EXPOSE 8080
-
-# Executa aplicação
-CMD ["java", "-jar", "target/agendafacil-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]

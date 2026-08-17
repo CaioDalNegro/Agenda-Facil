@@ -6,7 +6,7 @@ export default function App() {
 
   return (
 
-    // Provider global de autenticação
+    // Provedor global de autenticação.
     <AuthProvider>
 
       {/* Rotas do aplicativo */}

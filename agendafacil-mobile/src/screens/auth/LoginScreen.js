@@ -30,8 +30,6 @@ export default function LoginScreen({ navigation }) {
 
       // Salva o token JWT no armazenamento local
       await saveToken(response.data.token);
-      console.log('Token salvo:', response.data.token);
-
       // Atualiza o estado global de autenticação
       login();
 
@@ -120,7 +118,7 @@ export default function LoginScreen({ navigation }) {
           placeholder="********"
           placeholderTextColor="#777"
 
-          // Se showPassword for false, a senha fica escondida
+          // Oculta a senha enquanto a opção de exibição estiver desativada.
           secureTextEntry={!showPassword}
 
           style={styles.input}

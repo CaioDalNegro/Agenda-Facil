@@ -38,7 +38,7 @@ export default function HomeScreen() {
         setUser(null);
         setError(e.message || 'Erro ao buscar usuário');
       } finally {
-        // garantindo que loading será atualizado caso early-return não tenha sido usado
+        // Garante a atualização do carregamento quando não houver retorno antecipado.
         setLoading(false);
       }
     };

@@ -29,7 +29,7 @@ export default function RegisterSuccessScreen({ navigation, route }) {
       <StatusBar barStyle="light-content" backgroundColor="#121212" />
       
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Success Icon */}
+        {/* Ícone de sucesso */}
         <View style={styles.iconContainer}>
           <View style={styles.successCircle}>
             <Check color="#22C55E" size={48} strokeWidth={3} />
@@ -100,7 +100,7 @@ export default function RegisterSuccessScreen({ navigation, route }) {
         </View>
       </ScrollView>
 
-      {/* Footer Button */}
+      {/* Botão inferior */}
       <View style={styles.footer}>
         <TouchableOpacity
           style={styles.primaryButton}

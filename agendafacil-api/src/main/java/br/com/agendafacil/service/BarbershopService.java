@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.access.AccessDeniedException;
 
 import br.com.agendafacil.dto.BarbershopRequest;
+import br.com.agendafacil.dto.BarbershopResponse;
 import br.com.agendafacil.entity.Barbershop;
 import br.com.agendafacil.entity.User;
 import br.com.agendafacil.repository.BarbershopRepository;
@@ -16,7 +17,7 @@ public class BarbershopService {
 
     private final BarbershopRepository repository;
 
-    public Barbershop create(BarbershopRequest dto) {
+    public BarbershopResponse create(BarbershopRequest dto) {
 
         var auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || !(auth.getPrincipal() instanceof User)) {
@@ -36,6 +37,17 @@ public class BarbershopService {
                 .owner(owner)
                 .build();
 
-        return repository.save(shop);
+        Barbershop savedShop = repository.save(shop);
+        return new BarbershopResponse(
+                savedShop.getId(),
+                savedShop.getName(),
+                savedShop.getEmail(),
+                savedShop.getPhone(),
+                savedShop.getAddress(),
+                savedShop.getCity(),
+                savedShop.getState(),
+                savedShop.getDescription(),
+                owner.getId(),
+                savedShop.getCreatedAt());
     }
 }

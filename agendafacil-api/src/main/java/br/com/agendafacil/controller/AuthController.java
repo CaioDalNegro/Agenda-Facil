@@ -16,25 +16,14 @@ public class AuthController {
 
     // Cadastro ------------------------->
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
-
-        /*DEBUG*/
-        // System.out.println("ENTROU NO REGISTER");
-        // AuthResponse response = service.register(request);
-        // System.out.println("USUARIO CADASTRADO");
-        // return ResponseEntity.ok(response);
-
-        System.out.println("ROLE NO CONTROLLER: " + request.role());
+    public ResponseEntity<AuthResponse> register(@jakarta.validation.Valid @RequestBody RegisterRequest request) {
 
         return ResponseEntity.ok(service.register(request)); // Retorna resposta cadastro
     }
 
     // Login ----------------------------->
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
-        /*DEBUG*/
-        // System.out.println("ENTROU NO LOGIN");
-
+    public ResponseEntity<AuthResponse> login(@jakarta.validation.Valid @RequestBody LoginRequest request) {
         return ResponseEntity.ok(service.login(request)); // Retorna token login
     }
 }
