@@ -34,6 +34,11 @@ export default function RegisterScreen({ navigation, route }) {
       return;
     }
 
+    if (password.length < 8) {
+      Alert.alert("Senha inválida", "A senha deve ter pelo menos 8 caracteres.");
+      return;
+    }
+
     try {
 
       // Envia os dados para a API
@@ -55,7 +60,12 @@ export default function RegisterScreen({ navigation, route }) {
     } catch (error) {
 
       // Mostra o erro no console
-      console.log(error);
+      console.log("Falha no cadastro:", error.response?.status, error.response?.data);
+
+      if (error.response?.data?.message) {
+        Alert.alert("Erro", error.response.data.message);
+        return;
+      }
 
       // Exibe mensagem de erro
       Alert.alert(

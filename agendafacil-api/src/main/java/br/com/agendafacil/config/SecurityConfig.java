@@ -3,6 +3,8 @@ package br.com.agendafacil.config;
 import java.util.Arrays;
 import java.util.List;
 
+import jakarta.servlet.DispatcherType;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,6 +50,9 @@ public class SecurityConfig {
                 // Mantém a autenticação sem estado entre as requisições.
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // Os erros de validação são encaminhados internamente para /error. Permita o dispatcher
+                        // para que o Spring Security não transforme o 400 em 403.
+                        .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         // Apenas autenticação e consultas públicas podem ser acessadas sem login.
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/specialties/**", "/barbers/**", "/barbershops/**").permitAll()

@@ -70,6 +70,11 @@ export default function BarberRegisterScreen({ navigation }) {
       return;
     }
 
+    if (password.length < 8) {
+      Alert.alert("Senha inválida", "A senha deve ter pelo menos 8 caracteres.");
+      return;
+    }
+
     const specialty = selectedSpecialties.map((item) => item.name).join(", ") || "Geral";
 
     navigation.navigate("BarberScheduleScreen", {

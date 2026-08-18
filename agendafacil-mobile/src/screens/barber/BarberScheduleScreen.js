@@ -106,7 +106,12 @@ export default function BarberScheduleScreen({ navigation, route }) {
         },
       });
     } catch (error) {
-      console.log(error);
+      console.log("Falha no cadastro do barbeiro:", error.response?.status, error.response?.data);
+
+      if (error.response?.data?.message) {
+        Alert.alert('Erro', error.response.data.message);
+        return;
+      }
       Alert.alert('Erro', 'Não foi possível cadastrar o barbeiro no banco de dados.');
     } finally {
       setLoading(false);

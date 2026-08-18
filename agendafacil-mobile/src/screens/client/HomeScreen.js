@@ -10,9 +10,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import {
   MaterialCommunityIcons,
-  FontAwesome5,
 } from "@expo/vector-icons";
 import api from "../../services/api";
+import { getToken } from "../../storage/authStorage";
 
 export default function HomeScreen() {
   const [user, setUser] = useState(null);
