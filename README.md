@@ -28,7 +28,7 @@ docker exec -it agendafacil-postgres bash
 
 ## 🗄️ 4. Entrar no banco PostgreSQL
 ```bash
-psql -U admin -d agendafacil
+psql -U agendafacil -d agendafacil
 ```
 
 ---
