@@ -11,12 +11,13 @@ import br.com.agendafacil.entity.User;
 import br.com.agendafacil.repository.BarbershopRepository;
 import lombok.RequiredArgsConstructor;
 
-@Service
-@RequiredArgsConstructor
+@Service // Indica que esta classe é um serviço do Spring
+@RequiredArgsConstructor // Gera um construtor com argumentos para todos os campos finais (final) da classe
 public class BarbershopService {
 
-    private final BarbershopRepository repository;
+    private final BarbershopRepository repository; // Repositório para operações de banco de dados relacionadas a barbearias
 
+    // Método para criar uma nova barbearia
     public BarbershopResponse create(BarbershopRequest dto) {
 
         var auth = SecurityContextHolder.getContext().getAuthentication();

@@ -26,27 +26,27 @@ import lombok.Setter;
 public class Barber {
 
     @Id // Define como chave primária da tabela
-    @GeneratedValue
+    @GeneratedValue // Define que o valor será gerado automaticamente
     private UUID id;
 
-    // Campo obrigatório
-    @Column(nullable = false)
-    @NotBlank(message = "Nome é obrigatório")
+    
+    @Column(nullable = false) // Define que a coluna não pode ser nula
+    @NotBlank(message = "Nome é obrigatório") // Validação para garantir que o nome não seja vazio
     private String name;
 
-    @Column(nullable = true)
-    @NotBlank(message = "Email é obrigatório")
-    @Email(message = "Email inválido")
+    @Column(nullable = true) // Define que a coluna pode ser nula
+    @NotBlank(message = "Email é obrigatório") // Validação para garantir que o email não seja vazio
+    @Email(message = "Email inválido") // Validação para garantir que o email seja válido
     private String email;
 
-    @Column(nullable = true)
-    @NotBlank(message = "Telefone é obrigatório")
+    @Column(nullable = true) // Define que a coluna pode ser nula
+    @NotBlank(message = "Telefone é obrigatório") // Validação para garantir que o telefone não seja vazio
     private String phone;
 
-    @Column(nullable = true)
-    @NotBlank(message = "Senha é obrigatória")
+    @Column(nullable = true) // Define que a coluna pode ser nula
+    @NotBlank(message = "Senha é obrigatória") // Validação para garantir que a senha não seja vazia
     private String password;
 
-    @Column(nullable = true)
+    @Column(nullable = true) // Define que a coluna pode ser nula
     private String specialty;
 }

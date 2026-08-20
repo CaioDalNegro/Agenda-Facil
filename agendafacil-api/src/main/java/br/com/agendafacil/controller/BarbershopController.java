@@ -11,13 +11,14 @@ import br.com.agendafacil.dto.BarbershopResponse;
 import br.com.agendafacil.service.BarbershopService;
 import lombok.RequiredArgsConstructor;
 
-@RestController
-@RequestMapping("/barbershops")
-@RequiredArgsConstructor
+@RestController // Anotação para indicar que esta classe é um controlador REST do Spring
+@RequestMapping("/barbershops") // Define o caminho base para os endpoints deste controlador
+@RequiredArgsConstructor // Anotação do Lombok que gera um construtor com argumentos para todos os campos finais
 public class BarbershopController {
 
-    private final BarbershopService service;
+    private final BarbershopService service; // Serviço de barbearias, injetado pelo Spring
 
+    // Cadastro ------------------------->
     @PostMapping
     public ResponseEntity<BarbershopResponse> create(
             @jakarta.validation.Valid @RequestBody BarbershopRequest request){

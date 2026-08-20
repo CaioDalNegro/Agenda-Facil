@@ -7,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/users")
-@RequiredArgsConstructor
+@RestController // Anotação para indicar que esta classe é um controlador REST do Spring
+@RequestMapping("/users") // Define o caminho base para os endpoints deste controlador
+@RequiredArgsConstructor // Anotação do Lombok que gera um construtor com argumentos para todos os campos finais
 public class UserController {
 
     private final UserRepository repository;

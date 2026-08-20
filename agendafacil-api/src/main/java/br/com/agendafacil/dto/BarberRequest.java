@@ -8,10 +8,10 @@ import br.com.agendafacil.validation.MaxUtf8Bytes;
 // Record usado para receber
 // os dados do barbeiro
 public record BarberRequest(
-        @NotBlank @Size(max = 100) String name,
-        @NotBlank @Email @Size(max = 150) String email,
-        @NotBlank @Size(max = 50) String phone,
-        @NotBlank @Size(min = 8, message = "A senha deve ter pelo menos 8 caracteres.")
-        @MaxUtf8Bytes(value = 72, message = "A senha é muito longa.") String password,
-        @NotBlank @Size(max = 100) String specialty
+        @NotBlank @Size(max = 100) String name, // Validação para garantir que o nome não seja vazio e tenha no máximo 100 caracteres
+        @NotBlank @Email @Size(max = 150) String email, // Validação para garantir que o email não seja vazio, seja um email válido e tenha no máximo 150 caracteres
+        @NotBlank @Size(max = 50) String phone, // Validação para garantir que o telefone não seja vazio e tenha no máximo 50 caracteres
+        @NotBlank @Size(min = 8, message = "A senha deve ter pelo menos 8 caracteres.") // Validação para garantir que a senha não seja vazia e tenha no mínimo 8 caracteres
+        @MaxUtf8Bytes(value = 72, message = "A senha é muito longa.") String password, // Validação personalizada para garantir que a senha não tenha mais de 72 bytes em UTF-8
+        @NotBlank @Size(max = 100) String specialty // Validação para garantir que a especialidade não seja vazia e tenha no máximo 100 caracteres
 ){}

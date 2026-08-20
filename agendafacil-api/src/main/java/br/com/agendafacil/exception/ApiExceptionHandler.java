@@ -7,10 +7,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
+@RestControllerAdvice // Anotação que indica que esta classe é um manipulador de exceções para controladores REST
 public class ApiExceptionHandler {
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class) // Anotação que indica que este método deve ser chamado quando uma exceção do tipo MethodArgumentNotValidException for lançada
     public ResponseEntity<Map<String, String>> handleValidation(MethodArgumentNotValidException exception) {
         String message = exception.getBindingResult().getFieldErrors().stream()
                 .findFirst()

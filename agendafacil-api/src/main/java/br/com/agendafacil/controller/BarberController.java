@@ -14,18 +14,20 @@ import br.com.agendafacil.service.BarberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-@RestController
-@RequestMapping("/barbers")
-@RequiredArgsConstructor
+@RestController // Define classe como Controller REST
+@RequestMapping("/barbers") // Define rota base
+@RequiredArgsConstructor // Cria construtor automático
 public class BarberController {
 
     private final BarberService service;
 
+    // Cadastro ------------------------->
     @PostMapping
     public BarberResponse create(@Valid @RequestBody BarberRequest request) {
         return service.create(request);
     }
 
+    // Listar todos os cabeleireiros ---->
     @GetMapping
     public List<BarberResponse> findAll() {
         return service.findAll();
