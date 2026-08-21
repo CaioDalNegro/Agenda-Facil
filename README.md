@@ -81,5 +81,5 @@ exit
 Sem entrar no bash do container:
 
 ```bash
-docker exec -it agendafacil-postgres psql -U admin -d agendafacil
+docker exec -it agendafacil-postgres psql -U agendafacil -d agendafacil
 ```
